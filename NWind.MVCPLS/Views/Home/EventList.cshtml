@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Entities.Eventos>
+@{
+    ViewBag.Title = "Lista de Eventos";
+}
+
+<h2>Lista de Eventos</h2>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Lugar</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evento in Model)
+        {
+            <tr>
+                <td>@evento.Nombre</td>
+                <td>@evento.Lugar</td>
+                <td>@evento.FechaInicio.ToString("yyyy-MM-dd")</td>
+                <td>@evento.FechaFin</td>
+                <td>
+                    <a href="@Url.Action("Details", "Home", new { id = evento.EventoID })" class="btn btn-info btn-sm">Detalles</a>
+                    <a href="@Url.Action("CUDForm", "Home", new { id = evento.EventoID })" class="btn btn-warning btn-sm">Editar</a>
+                    @using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@evento.EventoID" />
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?');">
+                            Eliminar
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("CUDForm", "Home")" class="btn btn-success">Crear Nuevo Evento</a>

@@ -1,0 +1,15 @@
+﻿@model Entities.Eventos
+
+@{
+    ViewBag.Title = "Detalles del Evento";
+}
+
+<h2>Detalles del Evento</h2>
+<p>ID: @Model.EventoID</p>
+<p>Nombre: @Model.Nombre</p>
+<p>Lugar: @Model.Lugar</p>
+<p>Fecha Inicio: @Model.FechaInicio.ToShortDateString()</p>
+<p>Fecha Fin: @Model.FechaFin?.ToShortDateString()</p>
+<p>Descripción: @Model.Descripcion</p>
+
+<p><a href="@Url.Action("List", "Home")">Volver a la lista</a></p>
